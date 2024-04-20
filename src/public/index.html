@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda Online</title>
+    <!--LINK TO CSS-->
+    <link rel="stylesheet" href="styles.css"/>
+    <!--BOX ICONS-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'
+    />
+  </head>
+  <body>
+    <!--Navbar-->
+    <header>
+      <!--Navbar-->
+      <div class="nav container">
+      <!--Logo-->
+      <a href="#" class="logo">Ecommerce</a>
+      <!--Cart Icon-->
+      <i class='bx bx-shopping-bag' id="cart-icon" data-quantity="0"></i>
+      <!--Carrito-->
+      <div class="cart">
+        <h2 class="cart-title" Tu carrito>Tu carrito</h2>
+        <!--Contenido-->
+        <div class="cart-content"></div>
+        <!--Total-->
+        <div class="total">
+          <div class="total-title">Total</div>
+          <div class="total-price">$0</div>
+        </div>
+        <!--Comprar botton-->
+        <button type="button" class="btn-buy">Pagar Ahora</button>
+        <!--cerrar carrito-->
+        <i class='bx bx-x' id="close-cart"></i>
+      </div>
+    </div>
+    </header>
+    <!--Productos-->
+    <section class="shop container">
+      <h2 class="section-title">Tienda de Productos</h2>
+      <!--Conteido de Tienda-->
+      <div class="shop-content">
+        <!--Box 1-->
+        <div class="product-box">
+          <!--Stripe necesita imagenes que estan en linea en local service-->
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGajeyaq2D9yy-HXW5lBqVBkYj0pfronJ3tIf50zdmJrFCzZiDIubOLL3nZrIOsVUDpoGlP32_zN4AT65YS_dtJP3L0L9X2mEc22L6vy5wM_w-kJF8t54XD4Q-Rj_Za9EYbG14GoEuKEzItNITNEnpV6FkWhvL-r3QZSZ5GIYGTykM4F4tJQrpQe6nnSsp/s320/laptop.jpg" alt="" class="product-img"
+          />
+          <h2 class="product-title">LAPTOP</h2>
+          <span class="price">$849.99</span>
+          <i class='bx bx-shopping-bag add-cart'></i>
+        </div>
+        <!--Box 2-->
+        <div class="product-box">
+          <!--Stripe necesita imagenes que estan en linea en local service-->
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj77WwZtdl2niie8_B9S0rxE10u2-fcuM3KkADwtf3i6nx2eHyDnXRWGr_lH8UUPzsFCYiiQW6WctRYRw6Ru8EmIlMkL1u6VZ5BvhLsAvT9rPGA2mBES1OehOFtdNZZdp3F-605rMHm1Krwu6r5A1ktVeCPP520M1TkFafuv3LP0lRMcqogt8-kyVoTedKa/s320/audifonos.jpg" alt="" class="product-img"
+          />
+          <h2 class="product-title">AUDIFONOS HI-RES</h2>
+          <span class="price">$769.99</span>
+          <i class='bx bx-shopping-bag add-cart'></i>
+        </div>
+        <!--Box 3-->
+        <div class="product-box">
+          <!--Stripe necesita imagenes que estan en linea en local service-->
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh89xNPt5Rk5pf54roMqPewwvnV7c_PYQD6uRKrFLggaPoj0DQs-SACIICjqYBiXjFMWa13eTrQ4CKX7ZoAH2A3p_UW5MI3d7sL9MCRbtWGk4uWjo3SOelsTZjcFIMjW6uoVu9KQwDZPqqaWkl9ILkI4AQU1Hpxw7-t6N3bnEbRP5z0vTBYoS7sgp5aY_3Q/s6000/conjuntoadidas.jpg" alt="" class="product-img"
+          />
+          <h2 class="product-title">CONJUNTO ADIDAS</h2>
+          <span class="price">$999.99</span>
+          <i class='bx bx-shopping-bag add-cart'></i>
+        </div>
+        <!--Box 4-->
+        <div class="product-box">
+          <!--Stripe necesita imagenes que estan en linea en local service-->
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKPO4UFkqdt2pWs6f0S39gkAInF2aN18jWjevX-51SmmX7Cr_AEPniZu1T8c4ydO1diRO_XKOeUXwpHejnXi-13p3HmcwiJAgAQ_6irnnheT143KCsGTaLuXKiVvuyNLL5LopexjgPnQQFBxkuKAEe6uO3ukVVA8vNrccBS27qt450SH67AlqPreFZqSho/s320/sudaderanike.jpg" alt="" class="product-img"
+          />
+          <h2 class="product-title">SUDADERA NIKE</h2>
+          <span class="price">$649.99</span>
+          <i class='bx bx-shopping-bag add-cart'></i>
+        </div>
+        <!--Box 5-->
+        <div class="product-box">
+          <!--Stripe necesita imagenes que estan en linea en local service-->
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh8pS7jmwAhCkyKLz12fK77Ubk59sYndoeOlDkXBCXFslfTaUQ5O-yFD4fOLyrt5IFQqFUZvYYIB6BB_xvlNCCbtPV6092rd4hZW5b5AqRK7AN5GcHA1hcydSwZ7xamtni-aJN7DYOHonKqmNOL6xeWgNNLNyedEWESScARIstaig8V2VH7BuHJP2EjYN5B/s320/tenisnike.jpg" alt="" class="product-img"
+          />
+          <h2 class="product-title">TENIS NIKE</h2>
+          <span class="price">$2599.99</span>
+          <i class='bx bx-shopping-bag add-cart'></i>
+        </div>
+        <!--Box 6-->
+        <div class="product-box">
+          <!--Stripe necesita imagenes que estan en linea en local service-->
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioWt0UPJKCgrgugjaa8PvLKWYHBiOsffjTStZhLutkhqRPF3dlmxw14DKtps-s903aDDP9hs35pzPxZycM3g3b7HysqjRSjOBXICHP6_7nOs8uuJnUGCXmqxv_8PtEil1nsypMUEDe6vdrCRIWsa-MtaffQzQeS4nj1c5ZXHCs-GsTihMn-U6eNnvxFZQk/s320/tenisadidas.jpg" alt="" class="product-img"
+          />
+          <h2 class="product-title">TENIS ADIDAS</h2>
+          <span class="price">$2155.99</span>
+          <i class='bx bx-shopping-bag add-cart'></i>
+        </div>
+        <!--Box 7-->
+        <div class="product-box">
+          <!--Stripe necesita imagenes que estan en linea en local service-->
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNarL484eZnmctSLYWWg8lOM41mawhuEsfn2GZvM5_syTYZT6NxotVjcA1ogkd7SlJtvGHzOJZlwY7Swdl_9nkLdigyHiMqrbUux0qFpljbdilbWAX0AxKjWyPK2BvT_bEW4_OgWC1LEd5Uiqfz-xpylaVmEk8eRORwakvW0Hfnn1h_bzFHRPR3wpIPCpp/s320/playeranike.jpg" alt="" class="product-img"
+          />
+          <h2 class="product-title">PLAYERA NIKE</h2>
+          <span class="price">$349.99</span>
+          <i class='bx bx-shopping-bag add-cart'></i>
+        </div>
+        <!--Box 8-->
+        <div class="product-box">
+          <!--Stripe necesita imagenes que estan en linea en local service-->
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0T6HGz4EFWUTM1Sy0l0oFA2iII80MYm8VKshkXCLR-d1jKTH7Z_l0OEEToAcc_BCET_YKeqMyNgFIPlrCO53DGsnkEYNmzHkmw4yl-iimKkys1wW-ydgmA6kttkICqUPG5Ry14Xmw_9obLVPyaSTR3A2K5Pj3xbfC7HR59cM1pv93uluLjxoII4LYC0VZ/s320/tenisvans.jpg" alt="" class="product-img"
+          />
+          <h2 class="product-title">TENIS VANS</h2>
+          <span class="price">$1099.99</span>
+          <i class='bx bx-shopping-bag add-cart'></i>
+        </div>
+      </div>
+    </section>
+    <!--link to JS-->
+    <script src="main.js"></script>
+    <script src="cart.js"></script>
+  </body>
+</html>
+
