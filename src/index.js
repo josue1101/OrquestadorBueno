@@ -4,9 +4,11 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const path = require("path");
 const paymentRoutes = require("./routes/payment.routes.js");
+const { title } = require("process");
 const stripe = require("stripe")(
   "sk_test_51O6QsWJGdC53RqzMKrr5WmubTo6oAGEk05LQN2PgQRZCne8XDI1FpeWbhApsHkEG2MgCHRpEuvPxPpaPUmlnakrX00mgHBPWpo"
 ); // Add your Secret Key Here
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
@@ -14,6 +16,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(paymentRoutes);
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 app.use(express.static(path.resolve("src/public")));
 
@@ -42,7 +45,7 @@ app.post("/stripe-checkout", async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
-    success_url: "http://localhost:4000/succes",
+    success_url: "http://localhost:4000/payed.html",
     cancel_url: "http://localhost:4000/cancel.html",
     line_items: lineItems,
     //preguntar direccion en Stripe checkout page
