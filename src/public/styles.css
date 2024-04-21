@@ -321,7 +321,7 @@ header{
     align-items: center; 
 }
 
-.btn-buy-paypal, .btn-buy-mp {
+.btn-buy-paypal, .btnbuymp {
     padding: 12px 20px;
     border-radius: 2rem;
     background: var(--text-color);

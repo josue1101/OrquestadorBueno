@@ -3,18 +3,31 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const path = require("path");
-const paymentRoutes = require("./routes/payment.routes.js");
 const { title } = require("process");
 const stripe = require("stripe")(
   "sk_test_51O6QsWJGdC53RqzMKrr5WmubTo6oAGEk05LQN2PgQRZCne8XDI1FpeWbhApsHkEG2MgCHRpEuvPxPpaPUmlnakrX00mgHBPWpo"
 ); // Add your Secret Key Here
 const cors = require("cors");
+const orderData = require("../src/public/cart.js");
+
+const { MercadoPagoConfig, Preference } = require("mercadopago");
+
+const client = new MercadoPagoConfig({
+  accessToken:
+    "TEST-1567338789016917-102921-70531cc6c0e43143b1e79d88a6be3ed6-1529720876",
+});
+
+const mp = new MercadoPagoConfig(
+  "TEST-1567338789016917-102921-70531cc6c0e43143b1e79d88a6be3ed6-1529720876",
+  {
+    locale: "es-MX",
+  }
+);
 
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use(paymentRoutes);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
@@ -51,11 +64,13 @@ app.post("/stripe-checkout", async (req, res) => {
     //preguntar direccion en Stripe checkout page
   });
   res.json(session.url);
-  console.log("lineItems:",lineItems)
+  console.log("lineItems:", lineItems);
 });
 
-const PAY_PAL_C = "Ab7FA1ndpItrTMH4iSnpiAfxssFkLKM5-T88H61XWY37npvF2aBiWB8nHjvK_9Rw1YpuYu9uJdtjFd7c";
-const PAY_PAL_S = "EBj-hesgdF_q9YFDRkZ1xnuO3eLN9WjycLOYoWI7ffpbbfVvf3AbKk_x67KlUncikbXz-i-7IikPcS5v";
+const PAY_PAL_C =
+  "Ab7FA1ndpItrTMH4iSnpiAfxssFkLKM5-T88H61XWY37npvF2aBiWB8nHjvK_9Rw1YpuYu9uJdtjFd7c";
+const PAY_PAL_S =
+  "EBj-hesgdF_q9YFDRkZ1xnuO3eLN9WjycLOYoWI7ffpbbfVvf3AbKk_x67KlUncikbXz-i-7IikPcS5v";
 
 const PAYPAL_API = "https://api.sandbox.paypal.com";
 
@@ -83,14 +98,21 @@ app.post("/paypal-checkout", async (req, res) => {
   try {
     const accessToken = await getClientCredentials();
 
-    const total = req.body.items.reduce((total, item) => total + parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * item.quantity, 0);
+    const total = req.body.items.reduce(
+      (total, item) =>
+        total +
+        parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * item.quantity,
+      0
+    );
 
     const order = {
       intent: "CAPTURE",
       purchase_units: [
         {
           items: req.body.items.map((item) => {
-            const unitAmount = Math.round(parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * 100);
+            const unitAmount = Math.round(
+              parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * 100
+            );
             return {
               name: item.title,
               quantity: item.quantity.toString(),
@@ -129,12 +151,77 @@ app.post("/paypal-checkout", async (req, res) => {
       }
     );
 
-    const approveLink = orderResponse.data.links.find(link => link.rel === 'approve');
+    const approveLink = orderResponse.data.links.find(
+      (link) => link.rel === "approve"
+    );
 
     return res.json({ url: approveLink.href });
   } catch (error) {
     console.error("Error creating PayPal order", error);
     return res.status(500).send("Failed to create PayPal order");
+  }
+});
+
+app.post("/mp-checkout", async (req, res) => {
+  try {
+    const orderData = {
+      title: item.title,
+      quantity: item.quantity,
+      price: item.price,
+    };
+
+    const preference = await response.json();
+    createCheckoutButton(preference.id);
+  } catch (error) {
+    alert("error: (");
+  }
+});
+
+const createCheckoutButton = (preferenceId) => {
+  const bricksBuilder = mp.bricks();
+
+  const renderComponent = async () => {
+    if (window.checkoutButton) window.checkoutButton.unmount();
+
+    await bricksBuilder.create("wallet", "wallet_container", {
+      initialization: {
+        preferenceId: preferenceId,
+      },
+    });
+  };
+
+  renderComponent();
+};
+
+app.post("/createpreference", async (req, res) => {
+  try {
+    const body = {
+      items: [
+        {
+          title: Number(req.body.title),
+          quantity: Number(req.body.quantity),
+          unit_price: Number(req.body.unit_price),
+          currency_id: "MXN",
+        },
+      ],
+
+      back_urls: {
+        success: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        failure: "https://www.youtube.com/watch?v=izGwDsrQ1eQ",
+        pending: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      },
+    };
+
+    const preference = new Preference(client);
+    const result = await preference.create({ body });
+    res.json({
+      id: result.id,
+    });
+  } catch {
+    console.log(error);
+    res.status(500).json({
+      error: "Error al crear la preferencia: (",
+    });
   }
 });
 
