@@ -41,6 +41,25 @@
             .catch((err) => console.log(err));
         });
       });
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+        const payBtnMp = document.querySelector(".btnbuymp");
+
+      payBtnMp.addEventListener("click", () => {
+        fetch("/create_preference", {
+          method: "POST",
+          headers: new Headers({ "Content-Type": "application/json"}),
+          body: JSON.stringify(localStorage.getItem("cartItems")),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            window.location.href = data.url;
+          })
+          .catch((error) => console.log(error));
+      })
+
+      })
     </script>
   </body>
 </html>
