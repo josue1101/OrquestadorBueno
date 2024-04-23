@@ -7,7 +7,7 @@ const paymentRoutes = require("./routes/payment.routes.js");
 const stripe = require("stripe")(
   "sk_test_51O6QsWJGdC53RqzMKrr5WmubTo6oAGEk05LQN2PgQRZCne8XDI1FpeWbhApsHkEG2MgCHRpEuvPxPpaPUmlnakrX00mgHBPWpo"
 ); // Add your Secret Key Here
-
+const mercadopago = require('mercadopago');
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
@@ -133,6 +133,39 @@ app.post("/paypal-checkout", async (req, res) => {
     console.error("Error creating PayPal order", error);
     return res.status(500).send("Failed to create PayPal order");
   }
+});
+//----------------------------------------------------------------------------Mercado Pago ------------------------------------------------------------//
+//TESTUSER1621058052 oayUoPfmSO     Mastercard   ,  123 , 11/25
+mercadopago.configure({
+  access_token: 'TEST-8996313867297829-042202-0d9a6d51a43c336cb76b72fa1e640c4d-1237362578'
+});
+app.post('/mercadopago-checkout-pro', async (req, res) => {
+  let preference = {
+    
+    items: req.body.items.map((item) => {
+      return {
+        title: item.title,
+        unit_price: parseFloat(item.price.replace(/[^0-9.-]+/g, "")),
+        quantity: Math.round(item.quantity),
+      };
+    }),
+    back_urls: {
+      success: 'http://localhost:4000/payed.html',
+      failure: 'http://localhost:4000/cancel.html'
+    },
+    auto_return: 'approved',
+  };
+
+  try {
+    let preferenceResult = await mercadopago.preferences.create(preference);
+    
+    console.log(preferenceResult); // Imprime el resultado
+    res.redirect(preferenceResult.body.init_point); // Redirige al usuario al entorno de pruebas de MercadoPago
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
+  
 });
 
 const port = process.env.PORT || 4000;

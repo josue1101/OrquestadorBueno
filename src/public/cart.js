@@ -35,7 +35,7 @@ payBtn.addEventListener("click", () => {
 //     .catch((err) => console.log(err));
 // });
 // Botón de MercadoPago
-const payBtnMercadoPago = document.querySelector(".btn-buy-mercadopago");
+/* const payBtnMercadoPago = document.querySelector(".btn-buy-mercadopago");
 
 payBtnMercadoPago.addEventListener("click", () => {
   fetch("/mercadopago-checkout", {
@@ -52,3 +52,4 @@ payBtnMercadoPago.addEventListener("click", () => {
     })
     .catch((err) => console.log(err));
 });
+ */

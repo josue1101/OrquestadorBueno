@@ -14,6 +14,9 @@
       <button class="btn-buy-paypal">
         ¿Te gustaría intentarlo con PayPal?
       </button>
+      <button class="btn-buy-mercadopago">
+        ¿Te gustaría intentarlo con MercadoPago?
+      </button>
       <a href="http://localhost:4000" class="sc-btn"
         >Volver a la Pagina Principal</a
       >
@@ -38,6 +41,26 @@
             .catch((err) => console.log(err));
         });
       });
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+  const payBtnMercadoPago = document.querySelector(".btn-buy-mercadopago");
+
+  payBtnMercadoPago.addEventListener("click", () => {
+    fetch("/mercadopago-checkout-pro", {
+      method: "post",
+      headers: new Headers({ "Content-Type": "application/Json" }),
+      body: JSON.stringify({
+        items: JSON.parse(localStorage.getItem("cartItems")),
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Redirigir al usuario a la URL de MercadoPago
+        window.location.href = data.init_point;
+      })
+      .catch((err) => console.log(err));
+  });
+});
     </script>
   </body>
 </html>
