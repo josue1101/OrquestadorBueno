@@ -7,6 +7,7 @@ const { title } = require("process");
 const stripe = require("stripe")(
   "sk_test_51O6QsWJGdC53RqzMKrr5WmubTo6oAGEk05LQN2PgQRZCne8XDI1FpeWbhApsHkEG2MgCHRpEuvPxPpaPUmlnakrX00mgHBPWpo"
 ); // Add your Secret Key Here
+<<<<<<< HEAD
 const cors = require("cors");
 
 // SDK de Mercado Pago
@@ -16,6 +17,8 @@ const client = new MercadoPagoConfig({
   accessToken:
     "TEST-1567338789016917-102921-70531cc6c0e43143b1e79d88a6be3ed6-1529720876",
 });
+=======
+>>>>>>> parent of 9586436 (MP)
 
 const app = express();
 app.use(express.json());
@@ -154,6 +157,7 @@ app.post("/paypal-checkout", async (req, res) => {
     return res.status(500).send("Failed to create PayPal order");
   }
 });
+<<<<<<< HEAD
 
 // app.post("/create_prefence", async (req, res) => {
 //   const lineItemsMP = req.body.items.map((item) => {
@@ -199,6 +203,8 @@ app.post("/paypal-checkout", async (req, res) => {
 //     });
 //   }
 // });
+=======
+>>>>>>> parent of 9586436 (MP)
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log("Server is running..."));
